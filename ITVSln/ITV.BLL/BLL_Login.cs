@@ -6,8 +6,29 @@ using System.Text;
 
 namespace ITV.BLL
 {
-    public class BLL_Login:BLL_Base
+    public class BLL_Login:BLL_Base 
     {
+        public List<FUNCTIONS> GetFunctions(string operID)
+        { 
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(string.Format(@" SELECT [FUNC_ID]
+                                      ,[NODE_ID]
+                                      ,[PARENT_ID]
+                                      ,[MENU_TEXT]
+                                      ,[MENU_VALUE]
+                                      ,[MENU_IS_USE]
+                                      ,[MENU_SORT]
+                                      ,[MENU_LEVEL] from  FUNCTIONS where MENU_IS_Use = '1' AND exists
+                                 (select 1 from ROLE_POWERS
+                                 where ROLE_POWERS.FUNC_ID = FUNCTIONS.FUNC_ID
+                                 and  exists(select 1 from ROLE_ASSIGN where ROLE_ASSIGN.ROLE_ID = ROLE_POWERS.ROLE_ID
+                                             and exists(select 1 from OPERATORS where OPERATORS.OPER_ID = ROLE_ASSIGN.OPER_ID and OPER_ID = '{0}')
+                                             )
+                                  ) ", operID));
+
+            return this._adoContext.DBExecuteAsIEnumerable<FUNCTIONS>(strSql.ToString(), null, System.Data.CommandType.Text).ToList<FUNCTIONS>();
+
+        }
         /// <summary>
         /// 登录验证，并返回当前用户的信息和功能
         /// </summary>
@@ -16,6 +37,7 @@ namespace ITV.BLL
         /// <returns></returns>
         public ResultInfo<KeyValuePair<OPERATORS, List<FUNCTIONS>>> LoginValidate(string operCode, string operPwd)
         {
+        
             ResultInfo<KeyValuePair<OPERATORS,List<FUNCTIONS>>> result = new ResultInfo<KeyValuePair<OPERATORS,List<FUNCTIONS>>>();
             try
             {

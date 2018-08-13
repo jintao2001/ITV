@@ -12,8 +12,10 @@ namespace ITV.BLL
 
         public BLL_Base():base()
         {
+            
             _efContext = new DataAccess.EF.EFDataAccessBase(base.Database.Connection.ConnectionString);
             _adoContext = new DataAccess.ADO.SqlDataAccess(base.Database.Connection.ConnectionString);
+           
         }
 
     }
