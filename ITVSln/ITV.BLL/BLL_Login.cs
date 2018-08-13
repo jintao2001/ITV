@@ -20,25 +20,33 @@ namespace ITV.BLL
             try
             {
                 #region 方法1 
-                var pwdEcy = COMMON.Encryption.Cipher.MD5Encrypt32(operPwd);
-                var oper = this.OPERATORS.Where(x => x.OPER_CODE == operCode && x.OPER_PW == pwdEcy).FirstOrDefault();
-                if(oper==null)
+                if (true)
                 {
-                    result.Success = false;
-                    result.Message = "用户名或者密码错误！";
-                    return result;
+                    var pwdEcy = COMMON.Encryption.Cipher.MD5Encrypt32(operPwd);
+                    var oper = this.OPERATORS.Where(x => x.OPER_CODE == operCode && x.OPER_PW == pwdEcy).FirstOrDefault();
+                    if (oper == null)
+                    {
+                        result.Success = false;
+                        result.Message = "用户名或者密码错误！";
+                        return result;
+                    }
+
+                    oper.OPER_PW = string.Empty;
+                    var role = oper.ROLES.ToList();
+                    List<FUNCTIONS> funList = new List<FUNCTIONS>();
+                    role.ForEach(r =>
+                    {
+                        funList.AddRange(r.FUNCTIONS.ToList());
+                    });
+
+                    funList = funList.Distinct().ToList();
+                    result.Data = new KeyValuePair<OPERATORS, List<FUNCTIONS>>(oper, funList);
+                    result.Success = true; 
                 }
+                #endregion
 
-                oper.OPER_PW = string.Empty;
-                var role = oper.ROLES.ToList();
-                List<FUNCTIONS> funList = new List<FUNCTIONS>();
-                role.ForEach(r => {
-                    funList.AddRange(r.FUNCTIONS.ToList());
-                });
-
-                funList = funList.Distinct().ToList();
-                result.Data = new KeyValuePair<OPERATORS, List<FUNCTIONS>>(oper,funList);
-                result.Success = true;
+                #region 方法2
+                
                 #endregion
             }
             catch (Exception)
