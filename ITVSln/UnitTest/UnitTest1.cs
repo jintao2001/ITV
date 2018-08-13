@@ -9,7 +9,8 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod1()
         {
-            
+            var login = new ITV.BLL.BLL_Login();
+            var result = login.LoginValidate("hpb", "hpb");
         }
     }
 }
