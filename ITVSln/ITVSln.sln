@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITV.MDL", "ITV.MDL\ITV.MDL.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITV.BLL", "ITV.BLL\ITV.BLL.csproj", "{2C8A2AC1-DA40-4B6F-A9C6-D10450A41550}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{415DBA63-BC40-4864-8E2D-FE4FD4A01D6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{2C8A2AC1-DA40-4B6F-A9C6-D10450A41550}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C8A2AC1-DA40-4B6F-A9C6-D10450A41550}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C8A2AC1-DA40-4B6F-A9C6-D10450A41550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{415DBA63-BC40-4864-8E2D-FE4FD4A01D6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{415DBA63-BC40-4864-8E2D-FE4FD4A01D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{415DBA63-BC40-4864-8E2D-FE4FD4A01D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{415DBA63-BC40-4864-8E2D-FE4FD4A01D6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
