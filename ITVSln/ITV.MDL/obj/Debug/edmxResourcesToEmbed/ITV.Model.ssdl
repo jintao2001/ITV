@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ITV.MDL.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="FUNCTIONS">
+    <Key>
+      <PropertyRef Name="FUNC_ID" />
+    </Key>
+    <Property Name="FUNC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NODE_ID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="PARENT_ID" Type="varchar" MaxLength="20" />
+    <Property Name="MENU_TEXT" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MENU_VALUE" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="MENU_LEVEL" Type="int" />
+    <Property Name="MENU_IS_USE" Type="tinyint" Nullable="false" />
+    <Property Name="MENU_SORT" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“ITV.dbo.NumSeq”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="NumSeq">
+    <Key>
+      <PropertyRef Name="Cate" />
+      <PropertyRef Name="DateNo" />
+      <PropertyRef Name="CrTime" />
+    </Key>
+    <Property Name="Cate" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="DateNo" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="Seq" Type="int" />
+    <Property Name="CrTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OPERATORS">
+    <Key>
+      <PropertyRef Name="OPER_ID" />
+    </Key>
+    <Property Name="OPER_ID" Type="int" Nullable="false" />
+    <Property Name="OPER_CODE" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="OPER_PW" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="OPER_NAME" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="OPER_TYPE" Type="tinyint" />
+    <Property Name="OPER_REG_TIME" Type="varchar" MaxLength="19" />
+    <Property Name="OPER_LAST_TIME" Type="varchar" MaxLength="19" />
+    <Property Name="OPER_LOGIN_ONCE" Type="int" />
+    <Property Name="OPER_IS_USE" Type="tinyint" Nullable="false" />
+    <Property Name="Orders" Type="int" />
+  </EntityType>
+  <EntityType Name="ROLE_ASSIGN">
+    <Key>
+      <PropertyRef Name="OPER_ID" />
+      <PropertyRef Name="ROLE_ID" />
+    </Key>
+    <Property Name="OPER_ID" Type="int" Nullable="false" />
+    <Property Name="ROLE_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ROLE_POWERS">
+    <Key>
+      <PropertyRef Name="ROLE_ID" />
+      <PropertyRef Name="FUNC_ID" />
+    </Key>
+    <Property Name="ROLE_ID" Type="int" Nullable="false" />
+    <Property Name="FUNC_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ROLES">
+    <Key>
+      <PropertyRef Name="ROLE_ID" />
+    </Key>
+    <Property Name="ROLE_ID" Type="int" Nullable="false" />
+    <Property Name="ROLE_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ROLE_IS_USE" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_RO_REFERENCE_RO">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+    <End Role="ROLE_ASSIGN" Type="Self.ROLE_ASSIGN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="ROLE_ID" />
+      </Principal>
+      <Dependent Role="ROLE_ASSIGN">
+        <PropertyRef Name="ROLE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ROLE_ASS_REFERENCE_OPERATOR">
+    <End Role="OPERATORS" Type="Self.OPERATORS" Multiplicity="1" />
+    <End Role="ROLE_ASSIGN" Type="Self.ROLE_ASSIGN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OPERATORS">
+        <PropertyRef Name="OPER_ID" />
+      </Principal>
+      <Dependent Role="ROLE_ASSIGN">
+        <PropertyRef Name="OPER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ROLE_POW_REFERENCE_FUNCTION">
+    <End Role="FUNCTIONS" Type="Self.FUNCTIONS" Multiplicity="1" />
+    <End Role="ROLE_POWERS" Type="Self.ROLE_POWERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FUNCTIONS">
+        <PropertyRef Name="FUNC_ID" />
+      </Principal>
+      <Dependent Role="ROLE_POWERS">
+        <PropertyRef Name="FUNC_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ROLE_POW_REFERENCE_ROLES">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+    <End Role="ROLE_POWERS" Type="Self.ROLE_POWERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="ROLE_ID" />
+      </Principal>
+      <Dependent Role="ROLE_POWERS">
+        <PropertyRef Name="ROLE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="dpPMT_SGetMaintainSeq" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaintainCate" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="ITVMDLStoreContainer">
+    <EntitySet Name="FUNCTIONS" EntityType="Self.FUNCTIONS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OPERATORS" EntityType="Self.OPERATORS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ROLE_ASSIGN" EntityType="Self.ROLE_ASSIGN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ROLE_POWERS" EntityType="Self.ROLE_POWERS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NumSeq" EntityType="Self.NumSeq" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [NumSeq].[Cate] AS [Cate], 
+    [NumSeq].[DateNo] AS [DateNo], 
+    [NumSeq].[Seq] AS [Seq], 
+    [NumSeq].[CrTime] AS [CrTime]
+    FROM [dbo].[NumSeq] AS [NumSeq]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_RO_REFERENCE_RO" Association="Self.FK_RO_REFERENCE_RO">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="ROLE_ASSIGN" EntitySet="ROLE_ASSIGN" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ROLE_ASS_REFERENCE_OPERATOR" Association="Self.FK_ROLE_ASS_REFERENCE_OPERATOR">
+      <End Role="OPERATORS" EntitySet="OPERATORS" />
+      <End Role="ROLE_ASSIGN" EntitySet="ROLE_ASSIGN" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ROLE_POW_REFERENCE_FUNCTION" Association="Self.FK_ROLE_POW_REFERENCE_FUNCTION">
+      <End Role="FUNCTIONS" EntitySet="FUNCTIONS" />
+      <End Role="ROLE_POWERS" EntitySet="ROLE_POWERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ROLE_POW_REFERENCE_ROLES" Association="Self.FK_ROLE_POW_REFERENCE_ROLES">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="ROLE_POWERS" EntitySet="ROLE_POWERS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

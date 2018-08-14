@@ -1,0 +1,566 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DataAccess</name>
+    </assembly>
+    <members>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.BeginTransaction">
+            <summary>
+            开启事务
+            </summary>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.BeginTransaction(System.Data.IsolationLevel)">
+            <summary>
+            开启事务
+            </summary>
+            <param name="level">事务锁定行为(System.Data.IsolationLevel枚举)</param>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.CommitTransaction">
+            <summary>
+            提交事务
+            </summary>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.RollBackTransaction">
+            <summary>
+            回滚事务
+            </summary>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.Open">
+            <summary>
+            打开数据库连接
+            </summary>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.Close">
+            <summary>
+            关闭数据库连接，并释放cmd,_transation,_dataAdapter资源;
+            </summary>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.Dispose">
+            <summary>
+            释放所有数据库连接相关资源(连接、数据库命令、事务、以及context对象)
+            </summary>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.DBExecuteNonQueryAsTran(System.String,System.Collections.Generic.IEnumerable{System.Data.Common.DbParameter},System.Data.CommandType,System.Boolean)">
+            <summary>
+            事务执行参数化SQl语句(执行完必须提交或者回滚)(插入、更新和删除)
+            </summary>
+            <param name="sql">执行的sql语句</param>
+            <param name="parmCollection">执行的参数,如果无参可为空</param>
+            <param name="successAutoCommit">成功时自动提交事务(默认false,表示可继续使用当前开启的事务,使用完需要手动调用CommitTransaction方法)</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.DBExecuteScalar``1(System.String,System.Collections.Generic.IEnumerable{System.Data.Common.DbParameter},System.Data.CommandType)">
+            <summary>
+            参数化执行查询，返回查询结果集中的第一行第一列的值(其他行列忽略)
+            </summary>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.DBExecuteAsDataSet(System.String,System.Collections.Generic.IEnumerable{System.Data.Common.DbParameter},System.Data.CommandType)">
+            <summary>
+            参数化查询返回DataSet
+            </summary>
+            <param name="sql"></param>
+            <param name="parmCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.DBExecuteAsDataTable(System.String,System.Collections.Generic.IEnumerable{System.Data.Common.DbParameter},System.Data.CommandType)">
+            <summary>
+            参数化SQL查询返回DataTable
+            </summary>
+            <param name="sql"></param>
+            <param name="parmCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.DBExecuteAsIEnumerable``1(System.String,System.Collections.Generic.IEnumerable{System.Data.Common.DbParameter},System.Data.CommandType)">
+            <summary>
+            参数化SQL查询返回可枚举泛型集合
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql">参数化SQL语句</param>
+            <param name="parmCollection">参数集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.DBExecuteDataTableAsJson(System.String,System.Collections.Generic.IEnumerable{System.Data.Common.DbParameter},System.Data.CommandType,System.String)">
+            <summary>
+            转为带json名字的json串
+            </summary>
+            <param name="sql"></param>
+            <param name="parmCollection"></param>
+            <param name="cmdType"></param>
+            <param name="jsonname"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.ADO.ADODataAccessBase.ConverTo``1(System.Object)">
+            <summary>
+            类型转换
+            </summary>
+            <typeparam name="TResult">支持int16 32 64 decimal double byte char string这些类型</typeparam>
+            <param name="valueInput"></param>
+            <returns></returns>
+        </member>
+        <member name="F:DataAccess.EF.EFDataAccessAsTran._db">
+            <summary>
+            用于对基础数据库执行创建/删除/存在性检查操作
+            </summary>
+        </member>
+        <member name="F:DataAccess.EF.EFDataAccessBase._db">
+            <summary>
+            用于对基础数据库执行创建/删除/存在性检查操作
+            </summary>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.AddEntitys``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            增加多个实体
+            </summary>
+            <typeparam name="TEntity">实体的类型</typeparam>
+            <param name="entityList">要增加的实体集合</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.AddEntity``1(``0)">
+            <summary>
+            增加单个实体
+            </summary>
+            <typeparam name="TEntity">实体的类型</typeparam>
+            <param name="entity">要增加的实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.UpdateEntitys``2(System.Collections.Generic.IEnumerable{``0},``1)">
+            <summary>
+            批量更新对象
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="entitysList"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.UpdateEntitys_New``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            批量更新(新方法)
+            </summary>
+            <typeparam name="TEntity">实体类型</typeparam>
+            <param name="entitysList">实体集合</param>
+            <param name="csdl">Edmx文件模型名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.UpdateEntity_New``1(``0,System.String)">
+            <summary>
+            批量更新(新方法)
+            </summary>
+            <typeparam name="TEntity">实体类型</typeparam>
+            <param name="entity">实体</param>
+            <param name="csdl">Edmx文件模型名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.DeleteEntitys``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            删除实体,并返回影响的行数(Data属性);
+            </summary>
+            <param name="entityList"></param>
+            <returns>并返回影响的行数</returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.DeleteEntitys``2(System.Collections.Generic.IEnumerable{``0},``1)">
+            <summary>
+            删除对象
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="entityList"></param>
+            <param name="keyPropteryName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.DeleteEntity``1(``0)">
+            <summary>
+            删除单个对象,并返回影响的行数(Data属性);
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.DeleteEntitys_New``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            批量删除(新方法)
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entityList"></param>
+            <param name="csdl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.DeleteEntity_New``1(``0,System.String)">
+            <summary>
+            批量删除(新方法)
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entity"></param>
+            <param name="csdl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.QueryEntitys``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            获取该类型的实所有实体集合
+            </summary>
+            <param name="funcWhere"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.SqlQueryEntitys``1(System.String,System.Collections.Generic.IEnumerable{System.Data.Common.DbParameter})">
+            <summary>
+            SQL查询实体集合
+            </summary>
+            <param name="sql"></param>
+            <param name="parms"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.EF.EFDataAccessBase.Get_EntityKeyMembers``1(``0,System.String)">
+            <summary>
+            查询某个类型实体的所有主键
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entity"></param>
+            <param name="ssdl"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DataAccess.Logs.Log">
+            <summary>
+                <appSettings>必须使用配置文件
+                    <!--日志文件路径-->
+                    <add key="LogPath" value="Logs\"/>
+                    <!--日志文件的后缀名-->
+                    <add key="LogExName" value=".log"/>
+                </appSettings>
+            </summary>
+        </member>
+        <member name="M:DataAccess.Logs.Log.WriteLog(System.String)">
+            <summary>
+            记录调试日志
+            </summary>
+            <param name="title"></param>
+        </member>
+        <member name="M:DataAccess.Logs.Log.WriteLog(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            记录调试日志
+            </summary>
+            <param name="title"></param>
+            <param name="msgList"></param>
+        </member>
+        <member name="M:DataAccess.Logs.Log.WriteLog(System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            
+            </summary>
+            <param name="selfDefineFileName"></param>
+            <param name="title"></param>
+            <param name="msgList"></param>
+        </member>
+        <member name="M:DataAccess.Logs.Log.WriteException(System.String,System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="title"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:DataAccess.Logs.Log.WriteException(System.String,System.Exception,System.String)">
+            <summary>
+            (日期-自定义名)自定义文件名的记录异常
+            </summary>
+            <param name="title">日志标题</param>
+            <param name="exception">异常对象</param>
+            <param name="selfDefineFileName">自定义的文件名</param>
+        </member>
+        <member name="M:DataAccess.Logs.Log.WriteMsg(System.Text.StringBuilder,System.String)">
+            <summary>
+            日志文件写消息
+            </summary>
+            <param name="strBuild"></param>
+            <param name="selfDefineName"></param>
+        </member>
+        <member name="M:DataAccess.Logs.Log.GetClassName(System.Object,System.Int32)">
+            <summary>
+            获取当前执行方法的类名(包含命名空间)
+            </summary>
+            <param name="o"></param>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DataAccess.Logs.Log.GetMethodName(System.Object,System.Int32)">
+            <summary>
+            获取当前方法的名称(包含命名空间)
+            </summary>
+            <param name="o"></param>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.DataSetEx.FillModel_DA``1(System.Data.DataSet)">
+            <summary>
+            填充对象列表：用DataSet的第一个表填充实体类
+            </summary>
+            <param name="ds">DataSet</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.DataSetEx.FillModel_DA``1(System.Data.DataSet,System.Int32)">
+            <summary>  
+            填充对象列表：用DataSet的第index个表填充实体类
+            </summary>  
+        </member>
+        <member name="M:System.Data.DataSetEx.ToList_DA``1(System.Data.DataSet,System.Int32)">
+            <summary>
+            转List集合
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ds"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.DataSetEx.Dataset2Json(System.Data.DataSet)">
+            <summary>  
+            DataSet转换成Json格式  
+            </summary>  
+            <param name="ds">DataSet</param> 
+            <returns></returns>  
+        </member>
+        <member name="M:System.Data.DataTableEx.FillModel_DA``1(System.Data.DataTable)">
+            <summary>  
+            填充对象列表：用DataTable填充实体类
+            </summary>  
+        </member>
+        <member name="M:System.Data.DataTableEx.ToList_DA``1(System.Data.DataTable)">
+            <summary>
+            将DataTable转成List
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.DataTableEx.DataTableToJson(System.Data.DataTable)">
+            <summary>  
+            dataTable转换成Json格式  
+            </summary>  
+            <param name="dt"></param>  
+            <returns></returns>  
+        </member>
+        <member name="M:System.Data.DataTableEx.DataTableToJson(System.Data.DataTable,System.String)">
+            <summary>
+            Msdn
+            </summary>
+            <param name="dt"></param>
+            <param name="jsonName">json串名字</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.DataTableEx.CreateData``1(``0)">
+            <summary>
+            根据实体类得到表结构
+            </summary>
+            <param name="model">实体类</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.DynamicJson">
+            <summary>
+            动态json转换
+            </summary>
+        </member>
+        <member name="M:System.DynamicJson.Parse(System.String)">
+            <summary>from JsonSring to DynamicJson</summary>
+        </member>
+        <member name="M:System.DynamicJson.Parse(System.String,System.Text.Encoding)">
+            <summary>from JsonSring to DynamicJson</summary>
+        </member>
+        <member name="M:System.DynamicJson.Parse(System.IO.Stream)">
+            <summary>from JsonSringStream to DynamicJson</summary>
+        </member>
+        <member name="M:System.DynamicJson.Parse(System.IO.Stream,System.Text.Encoding)">
+            <summary>from JsonSringStream to DynamicJson</summary>
+        </member>
+        <member name="M:System.DynamicJson.Serialize(System.Object)">
+            <summary>create JsonSring from primitive or IEnumerable or Object({public property name:property value})</summary>
+        </member>
+        <member name="M:System.DynamicJson.#ctor">
+            <summary>create blank JSObject</summary>
+        </member>
+        <member name="M:System.DynamicJson.IsDefined(System.String)">
+            <summary>has property or not</summary>
+        </member>
+        <member name="M:System.DynamicJson.IsDefined(System.Int32)">
+            <summary>has property or not</summary>
+        </member>
+        <member name="M:System.DynamicJson.Delete(System.String)">
+            <summary>delete property</summary>
+        </member>
+        <member name="M:System.DynamicJson.Delete(System.Int32)">
+            <summary>delete property</summary>
+        </member>
+        <member name="M:System.DynamicJson.Deserialize``1">
+            <summary>mapping to Array or Class by Public PropertyName</summary>
+        </member>
+        <member name="M:System.DynamicJson.ToString">
+            <summary>Serialize to JsonString</summary>
+        </member>
+        <member name="T:System.IListEx">
+            <summary>
+            对实现IList接口的类扩展方法
+            </summary>
+        </member>
+        <member name="M:System.IListEx.Clone_DA``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            对一个集合深克隆(T必须实现ICloneable接口)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.IListEx.FillDataSet_DA``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            实体类转换成DataSet
+            </summary>
+            <param name="modelList">实体类列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.IListEx.FillDataTable_DA``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            实体类转换成DataTable
+            </summary>
+            <param name="modelList">实体类列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ObjectEx.Apply_DA``1(``0,``0,System.Boolean)">
+            <summary>
+            克隆所有属性(适合单个对象)
+            </summary>
+            <param name="target"></param>
+            <param name="from"></param>
+            <param name="ignoreDefaultValues">忽略默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ObjectEx.AsJsonString_DA``1(``0)">
+            <summary>
+            对象在在转化为json字符串
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ObjectEx.JsonDeserialize_DA``1(System.String)">
+            <summary>
+            json串转化为对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ObjectEx.JsonStringToList_DA``1(System.String)">
+            <summary>
+            json字符串转List集合
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ObjectEx.GetClassName_DA(System.Object,System.Int32)">
+            <summary>
+            获取当前执行方法的类名(包含命名空间)
+            </summary>
+            <param name="o"></param>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ObjectEx.GetMethodName_DA(System.Object,System.Int32)">
+            <summary>
+            获取当前方法的名称(包含命名空间)
+            </summary>
+            <param name="o"></param>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ObjectEx.IsNull_DA``1(``0)">
+            <summary>
+            判断当前对象是否为null
+            </summary>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ObjectEx.NotNull_DA``1(``0)">
+            <summary>
+            判断不为null
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.ReflectionEx">
+            <summary>
+            反射扩展方法(Reflection)
+            </summary>
+        </member>
+        <member name="M:System.ReflectionEx.GetDefaultValue(System.ComponentModel.PropertyDescriptor)">
+            <summary>
+            获取属性的描述特性
+            </summary>
+            <param name="property"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ReflectionEx.GetDefaultValue(System.Reflection.PropertyInfo)">
+            <summary>
+            获取属性的默认值
+            </summary>
+            <param name="property"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ReflectionEx.GetTypeOfParent(System.Web.UI.Control,System.String)">
+            <summary>
+            获取当前UI控件的父类型
+            </summary>
+            <param name="control"></param>
+            <param name="typeFullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.ReflectionEx.GetTypeOfParent(System.Web.UI.Control,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="control"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="P:System.ResultInfo`1.Success">
+            <summary>
+            表示执行是否成功(默认true)
+            </summary>
+        </member>
+        <member name="P:System.ResultInfo`1.Code">
+            <summary>
+            执行返回代码
+            </summary>
+        </member>
+        <member name="P:System.ResultInfo`1.Message">
+            <summary>
+            执行返回消息
+            </summary>
+        </member>
+        <member name="P:System.ResultInfo`1.Data">
+            <summary>
+            执行返回结果
+            </summary>
+        </member>
+        <member name="P:System.ResultInfo`1.HasException">
+            <summary>
+            是否包含异常
+            </summary>
+        </member>
+        <member name="P:System.ResultInfo`1.ExceptionCollection">
+            <summary>
+            异常集合
+            </summary>
+        </member>
+        <member name="M:System.ResultInfo`1.BindAllException(System.Exception)">
+            <summary>
+            绑定所有异常
+            </summary>
+            <param name="ex">传入顶级异常</param>
+        </member>
+        <member name="M:System.ResultInfo`1.GetAllExceptionMessage(System.Boolean,System.String)">
+            <summary>
+            返回异常所有信息
+            </summary>
+            <param name="webHuanHang">是否为web换行</param>
+            <param name="style">样式: color:red;  </param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
