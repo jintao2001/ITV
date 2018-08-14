@@ -10,11 +10,17 @@ namespace ITV.MvcApplication.Controllers
     {
         //
         // GET: /ITVPages/
-
+        public ActionResult Login()
+        {
+            return View();
+        }
         public ActionResult Index()
         {
             return View();
         }
-
+        public ActionResult Welcome()
+        {
+            return View();
+        }
     }
 }
