@@ -36,6 +36,12 @@ namespace ITV.MvcApplication.Models
         {
             get { return System.Configuration.ConfigurationManager.AppSettings["PageFooter"].ToString(); }
         }
-       
+        /// <summary>
+        /// 路径
+        /// </summary>
+        public static string LOGPATH
+        {
+            get { return System.Configuration.ConfigurationManager.AppSettings["PageTitle"].ToString(); }
+        }
     }
 }
