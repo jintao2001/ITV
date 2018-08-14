@@ -149,12 +149,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ITV.BLL\ITV.BLL.csproj">
@@ -168,6 +166,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\ITVPages\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ITVPages\Welcome.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ITVPages\Login.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
